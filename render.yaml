@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: telegram-mini-game-platform
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /ping
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DATABASE
+        value: telegram_games
+      - key: MINI_APP_URL
+        sync: false
+      - key: FRONTEND_ORIGINS
+        sync: false
+      - key: INIT_DATA_MAX_AGE_SECONDS
+        value: "3600"
